@@ -1,0 +1,45 @@
+
+<!-- saved from url=(0039)https://mirrors.huaweicloud.com/python/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>My Source
+    </title>
+</head>
+<body>
+<!-- Displayed the header for the overall path && 显示全局路径-->
+<h1>
+    <p>Index of my source</p>
+</h1>
+<pre>Name                 Last modified              Size</pre>
+<hr>
+<style>
+.additional-text {
+  /* 你的对齐样式，例如居中对齐 */
+  /*display: inline-block; /* 使 span 元素以内联块（inline-block）方式显示 */
+  /*vertical-align: middle; /* 垂直居中对齐 */
+  /* 其他样式，例如颜色、字体大小等 */
+  /*float: right;*/
+  position: absolute;
+  left: 160px; /* 设置距离左端的距离 */
+}
+
+</style>
+<pre>
+
+{% for link in links %}
+<a href="{{link.url}}" onclick="handleLinkUrl(this)">{{link.text}}</a><span class="additional-text">{{ link.addtion }}</span>
+{% endfor %}
+</pre>
+  
+<hr>
+<address style="font-size: small;">
+    See <a href="https://onaua.github.io">https://onaua.github.io</a>
+</address>
+<script type="text/javascript">
+    function handleLinkUrl(element) {
+        var value = element.getAttribute("href");
+        element.setAttribute("href", encodeURI(value));
+    }
+</script>
+
+
+</body></html>
