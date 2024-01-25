@@ -1,9 +1,35 @@
 from flask import render_template,Flask
+"""
+This module provides functions to generate a directory listing and serve files from a directory.
+
+It uses Flask to create a simple web server that renders an HTML page with links to files and directories.
+
+The main functions are:
+
+- generate_directory_structure: Generates a nested list structure with info about files and dirs.
+- generate_directory_structure_l: Alternative version returning list of tuples.
+- get_content: Handles requests to view a file's contents.
+- root: Renders the root HTML page with directory listing.
+
+There are also utility functions to get file metadata like last modified time and size.
+
+The routes handle paths relative to the __path module level variable.
+"""
 import pathlib,time
 from mymodule.myfunctions import formatByte
 app=Flask(__name__)
 __path=pathlib.Path(__file__).parent
 format="""<a href="{0}" onclick="handleLinkUrl(this)">{1}</a>          {2}"""
+rem_label={".py":('"""','"""'),
+           ".c":("/*","*/"),
+           ".cpp":("/*","*/"),
+           ".js":("/*","*/"),
+           ".java":("/*","*/"),
+           ".html":("<!--","-->"),
+           ".css":("/*","*/"),
+           ".vbs":("'",""),
+           ".bat":("::","::")
+           }
 def get_time(path:pathlib.Path,mode=1)->str:
     stat_info=path.stat()
     if mode==1:#获取最后一次访问时间
@@ -47,8 +73,14 @@ def generate_directory_structure_l(path=None):
     ...
 @app.route("/<path>/")
 def get_content(path):
-    _=pathlib.Path(path)
+    _=__path/path
+    _:pathlib.Path
     if _.is_file():
+        with open(_.__str__(),encoding="utf8") as f:
+            #read_lines=[ "<hr>"+_fcontent.rstrip() for _fcontent in f.readlines()]
+            rem_label_this=rem_label.get(_.suffix,("?","?"))
+            return render_template("__.html",title=_.name,content=f.read(),download_filename=_.name,rem_label_l=rem_label_this[0],rem_label_r=rem_label_this[1])
+        print(_.read_text(encoding="utf8"))
         return _.read_text(encoding="utf8")
     else:
         return root(pathlib.Path(path))

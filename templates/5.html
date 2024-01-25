@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL 提取示例</title>
+    <script>
+        function extractParentPath(url,ends_with_char) {
+            // 使用 URL 对象解析输入的 URL
+            const urlObject = new URL(url);
+
+            // 获取路径分割后的数组
+            const pathArray = urlObject.pathname.split('/');
+
+            // 移除数组中的最后一个元素，即当前路径
+            pathArray.pop();
+
+            // 重新构建路径并返回
+            const parentPath = pathArray.join('/');
+            result=`${urlObject.origin}${parentPath}`;
+            if(ends_with_char){
+                return result+"/";
+            }else{
+                return result;
+            }
+            
+        }
+
+        function extractAndDisplay() {
+            // 获取输入的 URL
+            let inputUrl = document.getElementById('urlInput').value;
+            let ends_with_char=false;
+            // 判断 inputUrl 是否以 "5" 结尾
+            if (inputUrl.endsWith("/")) {
+                inputUrl = inputUrl.slice(0, -1);
+                ends_with_char=true;
+            }
+
+            //const parentPath = extractParentPath(inputUrl,ends_with_char);
+
+            // 使用 URL 对象解析输入的 URL
+            const urlObject = new URL(inputUrl);
+
+            // 获取路径分割后的数组
+            const pathArray = urlObject.pathname.split('/');
+
+            // 移除数组中的最后一个元素，即当前路径
+            pathArray.pop();
+
+            // 重新构建路径并返回
+            let parentPath = pathArray.join('/');
+            result=`${urlObject.origin}${parentPath}`;
+            if(ends_with_char){
+                parentPath= result+"/";
+            }else{
+                parentPath= result;
+            }
+            
+            // 显示结果
+            document.getElementById('result').innerText = parentPath;
+        }
+    </script>
+</head>
+<body>
+    <label for="urlInput">输入 URL：</label>
+    <input type="text" id="urlInput" placeholder="https://github.io/y/u/">
+    <button onclick="extractAndDisplay()">提取上一级路径</button>
+
+    <p id="result"></p>
+</body>
+</html>
