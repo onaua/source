@@ -1,6 +1,6 @@
 {
     "install": false,
-    "hide": true,
+    "hide": false,
     "remove": false,
     "delete": false,
     "new": false,
