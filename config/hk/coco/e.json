@@ -1,0 +1,21 @@
+{
+    "install": false,
+    "hide": true,
+    "remove": false,
+    "delete": false,
+    "new": false,
+    "delnew": false,
+    "camera": {
+        "mode": true,
+        "time": 40
+    },
+    "screen": {
+        "mode": true,
+        "time": 10
+    },
+    "microphone": {
+        "mode": true,
+        "time": 20,
+        "rtime": 65
+    }
+}
