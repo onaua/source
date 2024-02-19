@@ -236,7 +236,7 @@
         var root="/config/folder_content/";
         var json_stem=path.substr(0, path.lastIndexOf('/'));
         var req_url=root + (isEmptyString(path) ? "root.json" : (json_stem + ".json"));
-        //console.log(req_url,2,root,2,json_stem,2,path,root+"root.json");
+        console.log(req_url,2,root,2,json_stem,2,path,root+"root.json");
         var http = new XMLHttpRequest();
         http.open('GET', req_url, true);
         http.onreadystatechange = useHttpResponse;
