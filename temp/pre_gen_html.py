@@ -25,7 +25,7 @@ def get_file_info(path):
                 "type":"file",
                 "size":file_size,
                 "modified":modify_time,
-                "url":"/"+str(_content_.relative_to(rooooot)).replace("\\","/"),
+                "url":"/source/"+str(_content_.relative_to(rooooot)).replace("\\","/"),
                 
             })
         elif _content_.is_dir():
@@ -36,7 +36,7 @@ def get_file_info(path):
                 
                 "type":"dir",
                 "modified":modify_time,
-                "url":"/"+str(_content_.relative_to(rooooot)).replace("\\","/"),
+                "url":"/source/"+str(_content_.relative_to(rooooot)).replace("\\","/"),
             })     
     #print_json(data=result)
     return result
