@@ -1,1 +1,85 @@
-[{"name": ".git", "date": "2024-02-08 18:26:54", "type": "dir", "modified": "2024-02-19 18:28:42", "url": "https://onaua.github.io/source/.git"}, {"name": "404.html", "date": "2024-02-08 18:26:54", "type": "file", "size": 9337, "modified": "2024-02-01 12:16:05", "url": "https://onaua.github.io/source/404.html"}, {"name": "404.png", "date": "2024-02-08 18:26:54", "type": "file", "size": 6077, "modified": "2023-09-17 09:39:19", "url": "https://onaua.github.io/source/404.png"}, {"name": "config", "date": "2024-02-08 18:26:54", "type": "dir", "modified": "2024-02-19 17:55:05", "url": "https://onaua.github.io/source/config"}, {"name": "development.png", "date": "2024-02-08 18:26:54", "type": "file", "size": 12790, "modified": "2023-09-17 09:39:19", "url": "https://onaua.github.io/source/development.png"}, {"name": "extensions", "date": "2024-02-19 17:46:20", "type": "dir", "modified": "2024-02-19 17:46:43", "url": "https://onaua.github.io/source/extensions"}, {"name": "index.html", "date": "2024-02-08 18:26:54", "type": "file", "size": 9457, "modified": "2024-02-19 18:24:44", "url": "https://onaua.github.io/source/index.html"}, {"name": "index2.html", "date": "2024-02-08 18:26:54", "type": "file", "size": 9365, "modified": "2023-09-17 09:39:19", "url": "https://onaua.github.io/source/index2.html"}, {"name": "ms-edge-brower-better.html", "date": "2024-02-19 18:14:07", "type": "file", "size": 391, "modified": "2024-02-19 17:54:06", "url": "https://onaua.github.io/source/ms-edge-brower-better.html"}, {"name": "temp", "date": "2024-02-19 17:39:38", "type": "dir", "modified": "2024-02-19 17:46:16", "url": "https://onaua.github.io/source/temp"}, {"name": "templates", "date": "2024-02-08 18:26:54", "type": "dir", "modified": "2024-02-08 18:26:54", "url": "https://onaua.github.io/source/templates"}]
+[
+    {
+        "name": ".git",
+        "date": "2024-02-08 18:26:54",
+        "type": "dir",
+        "modified": "2024-02-19 18:28:42",
+        "url": "https://onaua.github.io/source/.git"
+    },
+    {
+        "name": "404.html",
+        "date": "2024-02-08 18:26:54",
+        "type": "file",
+        "size": 9337,
+        "modified": "2024-02-01 12:16:05",
+        "url": "/404.html"
+    },
+    {
+        "name": "404.png",
+        "date": "2024-02-08 18:26:54",
+        "type": "file",
+        "size": 6077,
+        "modified": "2023-09-17 09:39:19",
+        "url": "https://onaua.github.io/source/404.png"
+    },
+    {
+        "name": "config",
+        "date": "2024-02-08 18:26:54",
+        "type": "dir",
+        "modified": "2024-02-19 17:55:05",
+        "url": "https://onaua.github.io/source/config"
+    },
+    {
+        "name": "development.png",
+        "date": "2024-02-08 18:26:54",
+        "type": "file",
+        "size": 12790,
+        "modified": "2023-09-17 09:39:19",
+        "url": "https://onaua.github.io/source/development.png"
+    },
+    {
+        "name": "extensions",
+        "date": "2024-02-19 17:46:20",
+        "type": "dir",
+        "modified": "2024-02-19 17:46:43",
+        "url": "https://onaua.github.io/source/extensions"
+    },
+    {
+        "name": "index.html",
+        "date": "2024-02-08 18:26:54",
+        "type": "file",
+        "size": 9457,
+        "modified": "2024-02-19 18:24:44",
+        "url": "https://onaua.github.io/source/index.html"
+    },
+    {
+        "name": "index2.html",
+        "date": "2024-02-08 18:26:54",
+        "type": "file",
+        "size": 9365,
+        "modified": "2023-09-17 09:39:19",
+        "url": "https://onaua.github.io/source/index2.html"
+    },
+    {
+        "name": "ms-edge-brower-better.html",
+        "date": "2024-02-19 18:14:07",
+        "type": "file",
+        "size": 391,
+        "modified": "2024-02-19 17:54:06",
+        "url": "https://onaua.github.io/source/ms-edge-brower-better.html"
+    },
+    {
+        "name": "temp",
+        "date": "2024-02-19 17:39:38",
+        "type": "dir",
+        "modified": "2024-02-19 17:46:16",
+        "url": "https://onaua.github.io/source/temp"
+    },
+    {
+        "name": "templates",
+        "date": "2024-02-08 18:26:54",
+        "type": "dir",
+        "modified": "2024-02-08 18:26:54",
+        "url": "https://onaua.github.io/source/templates"
+    }
+]

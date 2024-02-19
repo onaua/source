@@ -25,7 +25,7 @@ def get_file_info(path):
                 "type":"file",
                 "size":file_size,
                 "modified":modify_time,
-                "url":url+str(_content_.relative_to(rooooot)).replace("\\","/"),
+                "url":"/"+str(_content_.relative_to(rooooot)).replace("\\","/"),
                 
             })
         elif _content_.is_dir():
@@ -36,9 +36,9 @@ def get_file_info(path):
                 
                 "type":"dir",
                 "modified":modify_time,
-                "url":url+str(_content_.relative_to(rooooot)).replace("\\","/"),
+                "url":"/"+str(_content_.relative_to(rooooot)).replace("\\","/"),
             })     
-    print_json(data=result)
+    #print_json(data=result)
     return result
 
 import os
@@ -56,7 +56,7 @@ for ffff in rooooot.rglob("**/**"):
             ff=open(json_path,"w",encoding="utf-8")
             json.dump(vvv,ff)
             ff.close()
-            input(str(json_path))
+            #input(str(json_path))
 #vvv=get_file_info(r"g:\take away\programs\project\toast")
 #print_json(data=vvv)
 #pp_=__path(r"g:\take away\programs\project\toast")
