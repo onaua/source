@@ -233,7 +233,7 @@
         var lastSlash = location.pathname.lastIndexOf("/");
         var filename = location.pathname.substring(lastSlash + 1);
         //var root = 'https://registry.npmmirror.com/-/binary/';
-        var root="/config/folder_content/";
+        var root="/source/config/folder_content/";
         var json_stem=path;//.substr(0, path.lastIndexOf('/'));
         var req_url=root + (isEmptyString(path) ? "root.json" : (json_stem + ".json"));
         console.log(req_url,2,root,2,json_stem,2,path,root+"root.json");
