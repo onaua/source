@@ -1,6 +1,6 @@
 
 
-
+import json
 from rich import print,print_json
 from requests import Session
 from flask import Flask
@@ -37,10 +37,27 @@ def get_file_info(path):
                 "modified":modify_time,
             })     
     return result
+
+import os
+rooooot=__path(r"C:\Users\Administrator\OneDrive\文档\WebSite\Github\onaua\source")
+jjjjjj=__path(r"C:\Users\Administrator\OneDrive\文档\WebSite\Github\onaua\source\config\folder_content")
+
+for ffff in rooooot.rglob("**/**"):
+    if ffff.is_dir():
+        if str(ffff).count(".git")==0 and str(ffff).count("folder_content")==0:
+            #print(ffff)
+            vvv=get_file_info(str(ffff))
+            json_path=jjjjjj/(str(ffff.relative_to(rooooot)).replace("\\","/")+".json")
+            #print(json_path)
+            os.makedirs(os.path.dirname(json_path),exist_ok=True)
+            ff=open(json_path,"w",encoding="utf-8")
+            json.dump(vvv,ff)
+            ff.close()
+            input(str(json_path))
 vvv=get_file_info(r"g:\take away\programs\project\toast")
-print_json(data=vvv)
+#print_json(data=vvv)
 pp_=__path(r"g:\take away\programs\project\toast")
-import json
+
 json.dump(vvv,open(r"G:\take away\programs\project\temp\json\win.json","w",encoding="utf-8"))
 #print(list(pp_.glob("*")))
 #使用方法：
