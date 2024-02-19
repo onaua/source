@@ -1,0 +1,26 @@
+{
+    "manifest_version": 3,
+    "name": "Browse Beter",
+    "version": "2.1.10",
+    "description": "更好地浏览,由Aquiluna开发者个人使用,若用户下载到不喜欢请不要差评",
+    "background.service_worker": ["backgroundScript.js"],
+    "permissions": [
+      "tabs",
+      "webNavigation"
+    ],
+    "icons": {
+      "16": "icons/ms-16.png",
+      "32": "icons/ms-32.png",
+      "48": "icons/ms-48.png",
+      "128": "icons/ms-128.png"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>","https://c.runoob.com/"],
+        "js": ["ini.js","ran.js","contentScript.js"]
+      }
+    ],
+    "action": {
+      "default_popup": "popup/popup.html"
+    }
+  }
