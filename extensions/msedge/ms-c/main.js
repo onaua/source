@@ -1,7 +1,7 @@
 var timer;
 var number = 0;
 var runtimes = 0;
-
+const __version__ = "2.1.240309";
 let iAmMad=[];
 var iAmMad_weight=[]  ;//to sum equals 1
 var iAmMad_req_n=0;
@@ -11,34 +11,42 @@ var max_play_times=3;
 let req;
 let setting=false;
 const DEBUG=false;
-const RemoteLoadingFile=true;
+
 
 let played_lddgo=0;
 let played_runoob=0;
 let played_online_randoms=0;
 let played_stack=0;
+
 //let max_play_times=3;
 const today = new Date();
+let RemoteLoadingFile=false;
 var temp_config=get_info_config();
-const res=temp_config[0];
+let _res=temp_config[0];
 let _onclass=temp_config[1];
 let _tasks=temp_config[2];
+let _ran_funny_copule=temp_config[3];
 //res,_onclass,_tasks=get_info_config();
 
-if (RemoteLoadingFile){
-  if(window.XMLHttpRequest){
-    var xhr = new XMLHttpRequest();
-  }else if(window.ActiveXObject){
-    try{
-      var xhr=new ActiveXObject("Masxm12.XMLHTTP")
-    }catch (e){
-      try{
-        var xhr=new ActiveXObject("Microsoft.XMLHTTP")
-      }catch (e){
 
-      }
+if(DEBUG){
+    console.log("Debug mode is on");
+}
+//console.log("chnage remoteloadingfile  onclass")
+let xhr=get_XMLHttpRequest();
+xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      // 在这里处理从远程脚本返回的数据
+      printt(xhr.responseText);
+      let __jsonObject = JSON.parse(xhr.responseText);
+      RemoteLoadingFile=__jsonObject.RemoteLoadingFile;
     }
-  }
+  };
+xhr.open('GET', main_config_url, false);
+xhr.send();
+
+if (RemoteLoadingFile){
+  let xhr=get_XMLHttpRequest();
 
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
@@ -56,6 +64,17 @@ if (RemoteLoadingFile){
         writable: false, // 将常量设为不可写（即不可修改）
         configurable: false // 将常量设为不可配置（不可删除）
       });
+      Object.defineProperty(globalThis, 'res', {
+        value: jsonObject.res,
+        writable: false, // 将常量设为不可写（即不可修改）
+        configurable: false // 将常量设为不可配置（不可删除）
+      });
+      
+      Object.defineProperty(globalThis, 'ran_funny_copule', {
+        value: jsonObject.ran_funny_copule,
+        writable: false, // 将常量设为不可写（即不可修改）
+        configurable: false // 将常量设为不可配置（不可删除）
+      });
     }
   };
   xhr.open('GET', json_url, false);
@@ -63,6 +82,8 @@ if (RemoteLoadingFile){
 }else{
   var onclass = _onclass;
   var tasks = _tasks;
+  var res = _res;
+  var ran_funny_copule = _ran_funny_copule;
 }
 
 for (const [k, v_] of Object.entries(tasks)) {
@@ -129,3 +150,5 @@ window.addEventListener("load", function() {
   setInterval(process,10);
   
 console.log("Succeed in loading pages...");
+
+

@@ -42,8 +42,9 @@ def get_file_info(path):
     return result
 
 import os
-rooooot=__path(r"C:\Users\Administrator\OneDrive\文档\WebSite\Github\onaua\source")
-jjjjjj=__path(r"C:\Users\Administrator\OneDrive\文档\WebSite\Github\onaua\source\config\folder_content")
+# D:\WebSite\GitHub\onaua\source\temp
+rooooot=__path(r"D:\WebSite\GitHub\onaua\source")
+jjjjjj=__path(r"D:\WebSite\GitHub\onaua\source\config\folder_content")
 
 for ffff in rooooot.rglob("**/**"):
     if ffff.is_dir():

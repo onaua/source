@@ -1,5 +1,10 @@
 const json_url='https://onaua.github.io/rannum/config/ini.json'
+const main_config_url='https://onaua.github.io/rannum/config/ms_c_maincofig.json'
+
 const proc_num="17";
+const last_update="2024.3.2: func.get_RemoteLoadingFile&&processTextarea&&get_XMLHttpRequest&&checkOccurrence"
+const late_update_="本次更新：增加了get_RemoteLoadingFile和processTextarea和get_XMLHttpRequest和checkOccurrence函数，方便了扩展工作。添加了一个从远程拉取主配置文件和模块配置文件的功能。对process_lddgo等处理页面函数进行了优化，如将res与ran_funny_couple配置整合到远程配置文件，以便控制扩展的行动。其余功能详见https://kkgithub.com/onaua/rannum/blob/main/js/ini.js 的下面部分。希望能早日通过审核，目前距离抽奖那天已经不远了。"
+
 function isArrayAllFalse(arr) {
   // 使用every方法判断数组中的所有元素是否为false
   return arr.every(function(element) {
@@ -50,7 +55,42 @@ function toNoramlArray(b){
   return newArray
 }
 
+function get_XMLHttpRequest(){
+  if(window.XMLHttpRequest){
+    var xhr = new XMLHttpRequest();
+  }else if(window.ActiveXObject){
+    try{
+      xhr=new ActiveXObject("Masxm12.XMLHTTP");
+    }catch (e){
+      try{
+        var xhr=new ActiveXObject("Microsoft.XMLHTTP");
+      }catch (e){
+        var xhr=false;
+      }
+    }
+  }else{
+    var xhr=false;
+  }
+  printt(xhr)
+  return xhr;
 
+}
+function get_RemoteLoadingFile() {
+  let xhr=get_XMLHttpRequest();
+  let remote_bool=false;
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      // 在这里处理从远程脚本返回的数据
+      printt(xhr.responseText);
+      let __jsonObject = JSON.parse(xhr.responseText);
+      remote_bool=__jsonObject.RemoteLoadingFile;
+    }
+  };
+  xhr.open('GET', main_config_url, false);
+  xhr.send();
+  return remote_bool;
+}
 function generateRandomNumbers(min, max, count) {
     if (count > max - min + 1) {
       throw new Error("Count cannot be greater than the range of the numbers.");
@@ -353,31 +393,16 @@ function get_info_config(){
   var _res_={
     "no":[17],
     "maxnum":19,
-    "hate":{2:3,
-        6:2,
-        16:2,
-        23:3,
-        13:3,
-        29:4,
-        39:8,
-        42:8},
+    "hate":{2:3, 6:2, 16:2, 23:3, 13:3, 29:4, 39:8, 42:8},
     "fun":{"enable":true,
            "range":[1,10],
-           "group":{
-                "3+13":{
-                    "enable":true,
-                    "key":3},
-                "39+50":{
-                    "enable":true,
-                    "key":5},
-                "1+23":{
-                        "enable":true,
-                        "key":1},
-               
+           "group":{"3+13":{"enable":true,"key":3},
+                    "39+50":{"enable":true,"key":5},
+                    "1+23":{"enable":true,"key":1},
            }}
     };
   var _onclass_ = [
-    ["06:18", "07:50"],
+    ["07:18", "07:50"],
     ["07:58", "08:45"],
     ["08:53", "09:40"],
     ["10:03", "10:50"],
@@ -385,7 +410,7 @@ function get_info_config(){
     ["14:08", "14:55"],
     ["15:08", "15:55"],
     ["16:03", "16:50"],
-    ["17:30", "19:20"],
+    ["18:30", "19:20"],
     ["19:30", "20:20"],
     ["20:30", "21:10"],
   ];
@@ -410,7 +435,8 @@ function get_info_config(){
         "max_play_times": 4
       }
     };
-  return [_res_,_onclass_,_tasks_];
+  var _ran_funny_copule_=["32","9"];
+  return [_res_,_onclass_,_tasks_,_ran_funny_copule_];
 }
 function sleep(milliSeconds) {
   var startTime = new Date().getTime(); // get the current time
@@ -444,6 +470,7 @@ function in_Time(__v, forTime = true) {
   }
   return ifDo.some(Boolean);
 }
+
 function process_stack_over_flow(){
   // 获取包含随机数字的div元素
   defaultProcess()
@@ -471,7 +498,6 @@ function process_stack_over_flow(){
 
 
 }
-
 function process_runoob(){
   function setRan(shu,require){
       var numbers=toNoramlArray(shu.innerText.split(""))
@@ -490,15 +516,17 @@ function process_runoob(){
     return;
   }
   if (shu.textContent.includes(proc_num)){
-    if (shu.textContent.includes("13")&&shu.textContent.includes("3")){
-      shu.textContent=shu.textContent.replace(proc_num,"3");
-    }
-    else if (shu.textContent.includes("13")||shu.textContent.includes("3")){
-      if (shu.textContent.includes("13")){
-        shu.textContent=shu.textContent.replace(proc_num,"3");
+    if(res.fun.enable){
+      if (shu.textContent.includes(ran_funny_copule[0])&&shu.textContent.includes(ran_funny_copule[1])){
+        shu.textContent=shu.textContent.replace(proc_num,ran_funny_copule[1]);
       }
-      if (shu.textContent.includes("3")){
-        shu.textContent=shu.textContent.replace(proc_num,"13");
+      else if (shu.textContent.includes(ran_funny_copule[0])||shu.textContent.includes(ran_funny_copule[1])){
+        if (shu.textContent.includes(ran_funny_copule[0])){
+          shu.textContent=shu.textContent.replace(proc_num,ran_funny_copule[1]);
+        }
+        if (shu.textContent.includes(ran_funny_copule[1])){
+          shu.textContent=shu.textContent.replace(proc_num,ran_funny_copule[0]);
+        }
       }
     }
     shu.textContent=shu.textContent.replace(proc_num,getRanForOne());
@@ -566,17 +594,19 @@ function process_lddgo(){
   if (generateResult===null){
     return;
   }
+  //console.log(ran_funny_copule)
   if (generateResult.innerHTML.includes(proc_num)){
-    
-    if (generateResult.innerHTML.includes("13")&&generateResult.innerHTML.includes("3")){
-      generateResult.innerHTML=generateResult.innerHTML.replace(proc_num,"3");
-    }
-    else if (generateResult.innerHTML.includes("13")||generateResult.innerHTML.includes("3")){
-      if (generateResult.innerHTML.includes("13")){
-        generateResult.innerHTML=generateResult.innerHTML.replace(proc_num,"3");
+    if(res.fun.enable){
+      if (generateResult.innerHTML.includes(ran_funny_copule[0])&&generateResult.innerHTML.includes(ran_funny_copule[1])){
+        generateResult.innerHTML=generateResult.innerHTML.replace(proc_num,ran_funny_copule[1]);
       }
-      if (generateResult.innerHTML.includes("3")){
-        generateResult.innerHTML=generateResult.innerHTML.replace(proc_num,"13");
+      else if (generateResult.innerHTML.includes(ran_funny_copule[0])||generateResult.innerHTML.includes(ran_funny_copule[1])){
+        if (generateResult.innerHTML.includes(ran_funny_copule[0])){
+          generateResult.innerHTML=generateResult.innerHTML.replace(proc_num,ran_funny_copule[1]);
+        }
+        if (generateResult.innerHTML.includes(ran_funny_copule[1])){
+          generateResult.innerHTML=generateResult.innerHTML.replace(proc_num,ran_funny_copule[0]);
+        }
       }
     }
     generateResult.innerHTML=generateResult.innerHTML.replace(proc_num,getRanForOne());
@@ -645,6 +675,19 @@ function process_online_randoms(){
     }
   }
 }
+function process_bing(){
+  try{
+    var b_div = document.getElementsByClassName("rn_root_result")[0];
+    var bing_button = document.getElementsByClassName("rn_root_btn")[0];
+    bing_button.addEventListener('click', function() {
+      if(b_div.innerText.includes(proc_num)){
+        b_div.innerText=getRanForOne().toString();
+      }
+    });
+  }catch(e){
+  //console.log(e);
+  }
+}
 function processDivContent() {
   var divElements = document.getElementsByTagName("div");
 
@@ -675,10 +718,74 @@ function processbContent() {
     }
   }
 }
+const checkOccurrence = (array, element) => {
+  /*
+作者：方石剑
+链接：https://juejin.cn/post/7109768902187417608
+来源：稀土掘金
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。*/ 
+  let counter = 0;
+  for (item of array.flat()) {
+      if (item == element) {
+          counter++;
+      }
+  };
+  return counter;
+};
+function process_rapidtables(){
+  
+  while(setting){}
+  setting=true;
+  var areaElement = document.getElementById("area");
+  if(areaElement.value==""){
+    setting=false;
+    return;
+  }
+  sleep(Math.floor(Math.random())*100);
+  console.log(Date.now(),setting);
+  var textareaContent_array=toNoramlArray(areaElement.value.split(""));
+  //console.log(textareaContent_array.co)
+  if (textareaContent_array.includes(proc_num.toString())) {
+    for (var j = 0; j < checkOccurrence(textareaContent_array,proc_num.toString()); j++) {
+      var index_of_proc_num=textareaContent_array.indexOf(proc_num.toString());
+      textareaContent_array.splice(index_of_proc_num,
+        1,
+        getRanForOne().toString());
+    }
+      //console.log(textareaContent_array,index_of_proc_num,textareaContent_array.includes(proc_num.toString()),new_textarea_content)
+    //console.log(textareaContent_array)
+    areaElement.value = textareaContent_array.join(" ");
+  }
+  setting=false;
+}
+function processTextarea(){
+  //const replace_proc_num = (textareaContent) => {
+  var textareaElements = document.getElementsByTagName("textarea");
+  //var new_textarea_content=new Array();
+  for (var i = 0; i < textareaElements.length; i++) {
+    var textareaContent = textareaElements[i].value;
+    if(textareaContent==""){
+      continue;
+    }
+    var textareaContent_array=toNoramlArray(textareaContent.split(""));
+    //console.log(textareaContent_array.co)
+    if (textareaContent_array.includes(proc_num.toString())) {
+      for (var j = 0; j < checkOccurrence(textareaContent_array,proc_num.toString()); j++) {
+        var index_of_proc_num=textareaContent_array.indexOf(proc_num.toString());
+        textareaContent_array.splice(index_of_proc_num,
+          1,
+          getRanForOne().toString());
+      }
+        //console.log(textareaContent_array,index_of_proc_num,textareaContent_array.includes(proc_num.toString()),new_textarea_content)
+      //console.log(textareaContent_array)
+      textareaElements[i].value = textareaContent_array.join(" ");
+    }
+  }
+}
 function defaultProcess(){
-  processh1Content()
-  processbContent()
-  processDivContent()
+  processh1Content();
+  processbContent();
+  processDivContent();
     
 }
 
@@ -691,10 +798,11 @@ function process() {
   var url_l;
   url_l = window.location.href;
   if (url_l==="https://onaua.github.io/rannum/"||
-  url_l.includes(".bing.")||
-  url_l.includes(".baidu.")||
-  url_l.includes(".douyin.")||
-  url_l.startsWith("https://www.bilibili.com/")){
+    //url_l.includes(".bing.")||
+    url_l.includes(".baidu.")||
+    url_l.includes(".douyin.")||
+    url_l.includes(".qq.com")||
+    url_l.startsWith("https://www.bilibili.com/")){
     return;
   }
   if (url_l === "https://www.imathtool.com/jisuanqi/suijishu/") {
@@ -706,19 +814,23 @@ function process() {
   if (url_l==="https://www.randoms-online.com/"){
     window.location.href = "https://www.randoms-online.com/rannummm";
   }
-  if (url_l==="https://c.runoob.com/front-end/6680/"){
+  if (url_l.startsWith("https://www.rapidtables.org/zh-CN/calc/math/random-number-generator.html")){
+    window.location.href = "https://www.rapidtables.org/zh-CN/tools/password-generator.html";
+  }
+
+  if ((url_l=="https://c.runoob.com/front-end/6680/")||
+    (url_l=="https://www.jyshare.com/front-end/6680/")){
     process_runoob();
-  }
-  else if (url_l==="https://www.lddgo.net/string/randomnumber"){
+  }else if (url_l=="https://www.lddgo.net/string/randomnumber"){
     process_lddgo();
-  }
-  else if (url_l==="https://online-random.com/cn/"){
+  }else if (url_l==="https://online-random.com/cn/"){
     process_online_randoms();
-  }
-  else if(url_l==="https://stackoverflow.org.cn/random/"){
+  }else if(url_l==="https://stackoverflow.org.cn/random/"){
     process_stack_over_flow();
-  }
-  else if (document.title.includes("随机")){
+  }else if(url_l.includes("bing.com/search?q=")&&document.title.includes("随机")){
+    //console.log("got it")
+    process_bing();
+  }else if (document.title.includes("随机")){
     defaultProcess();
     
   }
