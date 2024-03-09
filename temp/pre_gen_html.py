@@ -53,6 +53,8 @@ for ffff in rooooot.rglob("**/**"):
             vvv=get_file_info(str(ffff))
             json_path=jjjjjj/(str(ffff.relative_to(rooooot)).replace("\\","/")+".json")
             #print(json_path)
+            if json_path.__str__().count("..json")!=0:
+                json_path=__path(json_path.__str__().replace("..json","root.json"))
             os.makedirs(os.path.dirname(json_path),exist_ok=True)
             ff=open(json_path,"w",encoding="utf-8")
             json.dump(vvv,ff)
