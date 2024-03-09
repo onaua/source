@@ -1,0 +1,236 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{{title}}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding-bottom: 50px; /* 为下载按钮留出空间 */
+            background: #ca8687;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100%;
+            background:  #98FB98;
+            box-sizing: border-box;
+            border-left: 10px solid #98FB98; /* 左侧边框，可修改颜色和宽度 */
+            
+            resize: none; /* 可选：禁用 textarea 的拖拽调整大小功能 */
+            
+        }
+
+        #downloadButton,
+        #backButton {
+            width: 200px;
+            position: fixed;
+            text-align: center;
+            bottom: 0;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #downloadButton {
+            left: calc(50% - 230px); /* 设置 downloadButton 的左侧位置 */
+            background: linear-gradient(120deg, #694d9f, #2586a6);
+            color: white;
+            margin-right: 10px; /* 设置 downloadButton 与 backadButton 之间的间距 */
+        }
+
+        #backButton {
+            left: calc(50% + 0px); /* 设置 backadButton 的左侧位置 */
+            background: linear-gradient(120deg, #78a335, #c85d44);
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <textarea readonly spellcheck="false">
+
+    </textarea>
+    <a id="downloadButton" download="{{download_filename}}" onclick="downloadFile()">下载本文件</a>
+    <!--a id="backButton"  onclick="window.location.href=extractUrl(window.location.href)">返回上一级目录</a-->
+    <a id="backButton"  onclick="window.location.href=extractUrl(window.location.href)">返回上一页</a>
+    <!-- JavaScript 代码 -->
+    <script>
+        function main(){
+            var rem_label={".py":['"""','"""'],
+           ".c":["/*","*/"],
+           ".cpp":["/*","*/"],
+           ".js":["/*","*/"],
+           ".java":["/*","*/"],
+           ".html":["<!--","-->"],
+           ".css":["/*","*/"],
+           ".vbs":["'",""],
+           ".bat":["::","::"]
+           }
+            
+            var file_full_url=getParameter("file");
+            var file=get_last_par(file_full_url);
+            var file_name=file.split(".")[0];
+            var file_ext="."+file.split('.').pop();
+            var rem_label_l=rem_label[file_ext][0];
+            var rem_label_r=rem_label[file_ext][1];
+            //document.getElementsByTagName("textarea")[0].value=textarea_content;
+           console.log(rem_label_l,rem_label_r)
+            let xhr=get_XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var textarea_content=rem_label_l+"=============='"+file+"'=============="+rem_label_r+"\r\n\r\n"+xhr.responseText;
+                    document.getElementsByTagName("textarea")[0].innerHTML=textarea_content;
+                }
+            };
+            console.log(decodeURI(file_full_url).replace("%3A",":"))
+            xhr.open('GET', decodeURI(file_full_url).replace("%3A",":"), true);
+            xhr.send();
+            
+            document.title=file;
+        }
+        function get_last_par(str){
+            var index = str .lastIndexOf("/");
+            return str .substring(index + 1, str .length); //ferenceRoom
+        }
+        function get_XMLHttpRequest(){
+            if(window.XMLHttpRequest){
+                var xhr = new XMLHttpRequest();
+            }else if(window.ActiveXObject){
+                try{
+                xhr=new ActiveXObject("Masxm12.XMLHTTP");
+                }catch (e){
+                try{
+                    var xhr=new ActiveXObject("Microsoft.XMLHTTP");
+                }catch (e){
+                    var xhr=false;
+                }
+                }
+            }else{
+                var xhr=false;
+            }
+            return xhr;
+        }
+        function getParameter(parameterName) {
+        // Add '=' to the parameter name (i.e. parameterName=value)
+        var parameterName = parameterName + '=';
+        var queryString = window.location.search.substring(1);
+        if (queryString.length <= 0) {
+          return '';
+        }
+
+        // Find the beginning of the string
+        begin = queryString.indexOf(parameterName);
+
+        // If the parameter name is not found, skip it, otherwise return the
+        // value.
+        if (begin == -1) {
+          return '';
+        }
+
+        // Add the length (integer) to the beginning.
+        begin += parameterName.length;
+
+        // Multiple parameters are separated by the '&' sign.
+        end = queryString.indexOf ('&', begin);
+
+        if (end == -1) {
+          end = queryString.length;
+        }
+
+        // Return the string.
+        return escape(unescape(queryString.substring(begin, end)));
+      }
+
+        function extractUrl(inputUrl) {
+            //let inputUrl = document.getElementById('urlInput').value;
+            let ends_with_char=false;
+            // 判断 inputUrl 是否以 "5" 结尾
+            if (inputUrl.endsWith("/")) {
+                inputUrl = inputUrl.slice(0, -1);
+                ends_with_char=true;
+            }
+
+            //const parentPath = extractParentPath(inputUrl,ends_with_char);
+
+            // 使用 URL 对象解析输入的 URL
+            const urlObject = new URL(inputUrl);
+
+            // 获取路径分割后的数组
+            const pathArray = urlObject.pathname.split('/');
+
+            // 移除数组中的最后一个元素，即当前路径
+            pathArray.pop();
+
+            // 重新构建路径并返回
+            let parentPath = pathArray.join('/');
+            result=`${urlObject.origin}${parentPath}`;
+            if(ends_with_char){
+                return result+"/";
+            }else{
+                return result;
+            }
+            
+            // 显示结果
+            //document.getElementById('result').innerText = parentPath;
+        }
+    
+        function downloadFile() {
+            // 获取整个 HTML 页面内容
+            const pageContent = document.documentElement.outerHTML;
+
+            // 创建一个 Blob 对象
+            const blob = new Blob([pageContent], { type: 'text/html' });
+
+            // 创建一个下载链接
+            const downloadLink = document.createElement('a');
+            downloadLink.href = URL.createObjectURL(blob);
+
+            // 设置下载链接的属性
+            downloadLink.download = '{{download_filename}}';
+
+            // 将下载链接添加到文档中
+            document.body.appendChild(downloadLink);
+
+            // 模拟点击下载链接
+            downloadLink.click();
+
+            // 移除下载链接
+            document.body.removeChild(downloadLink);
+        }
+        function getCookie(name) {
+            let value = "; " + document.cookie;
+            let parts = value.split("; " + name + "=");
+            if (parts.length == 2) {
+            return parts.pop().split(";").shift();
+            }
+            return null;
+        }
+        if (navigator.userAgent.match(/iPhone|iPad|iPod/)) {
+            document.documentElement.dataset.ios = "";
+        }
+        if (navigator.userAgent.match(/Android/)) {
+            document.documentElement.dataset.android = "";
+        }
+        let queryTheme;
+        if (typeof URLSearchParams !== "undefined") {
+            // 这里不启用根据 query 等设置 cookie 的功能这种复杂逻辑
+            const params = new URLSearchParams(window.location.search);
+            queryTheme = params.get("theme");
+        }
+        const cookieTheme = getCookie("theme");
+        const theme = queryTheme || cookieTheme || "light";
+        document.documentElement.dataset.theme = theme;
+        const goBackButton = document.getElementById("backButton");
+        goBackButton.addEventListener("click", function (e) {
+            history.go(-1);
+        });
+        
+        main();
+    </script>
+    
+</html>
