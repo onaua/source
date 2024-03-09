@@ -76,15 +76,25 @@
             var file=get_last_par(file_full_url);
             var file_name=file.split(".")[0];
             var file_ext="."+file.split('.').pop();
-            var rem_label_l=rem_label[file_ext][0];
-            var rem_label_r=rem_label[file_ext][1];
+            var is_script=true;
+            try{
+                var rem_label_l=rem_label[file_ext][0];
+                var rem_label_r=rem_label[file_ext][1];
+            }catch(e){
+                is_script=false;
+            }
             //document.getElementsByTagName("textarea")[0].value=textarea_content;
-           console.log(rem_label_l,rem_label_r)
+           //console.log(rem_label_l,rem_label_r)
             let xhr=get_XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     var textarea_content=rem_label_l+"=============='"+file+"'=============="+rem_label_r+"\r\n\r\n"+xhr.responseText;
-                    document.getElementsByTagName("textarea")[0].innerHTML=textarea_content;
+                    if(is_script){
+                        document.getElementsByTagName("textarea")[0].innerHTML=textarea_content;
+                    }else{
+                        document.write(xhr.responseText)
+                    }
+                    
                 }
             };
             console.log(decodeURI(file_full_url).replace("%3A",":"))

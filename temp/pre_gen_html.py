@@ -25,7 +25,7 @@ def get_file_info(path):
                 "type":"file",
                 "size":file_size,
                 "modified":modify_time,
-                "url":"https://onaua.github.io/source/view.html?file=source/"+str(_content_.relative_to(rooooot)).replace("\\","/"),
+                "url":"https://onaua.github.io/source/view.html?file=/"+str(_content_.relative_to(rooooot)).replace("\\","/"),
                 
             })
         elif _content_.is_dir():
