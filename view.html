@@ -55,7 +55,7 @@
     <textarea readonly spellcheck="false">
 
     </textarea>
-    <a id="downloadButton" download="javascript:file_l" onclick="downloadFile()">下载本文件</a>
+    <a id="downloadButton" download="javascript:file_l" onclick="downloadFile(file_l)">下载本文件</a>
     <!--a id="backButton"  onclick="window.location.href=extractUrl(window.location.href)">返回上一级目录</a-->
     <a id="backButton"  onclick="window.location.href=extractUrl(window.location.href)">返回上一页</a>
     <!-- JavaScript 代码 -->
@@ -101,9 +101,11 @@
             //console.log(decodeURI(file_full_url).replace("%3A",":"))
             xhr.open('GET', file_full_urll, true);
             xhr.send();
-            
+            download_button=document.getElementById("downloadButton");
+            //download_button.setAttribute("href",file_full_urll);
+            download_button.setAttribute("download",file);
             document.title=file;
-            return file_l;
+            return file;
         }
         function get_last_par(str){
             var index = str .lastIndexOf("/");
@@ -191,7 +193,7 @@
             //document.getElementById('result').innerText = parentPath;
         }
     
-        function downloadFile() {
+        function downloadFile(file_l) {
             // 获取整个 HTML 页面内容
             const pageContent = document.documentElement.outerHTML;
 
