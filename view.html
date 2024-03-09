@@ -55,7 +55,7 @@
     <textarea readonly spellcheck="false">
 
     </textarea>
-    <a id="downloadButton" download="{{download_filename}}" onclick="downloadFile()">下载本文件</a>
+    <a id="downloadButton" download="javascript:file_l" onclick="downloadFile()">下载本文件</a>
     <!--a id="backButton"  onclick="window.location.href=extractUrl(window.location.href)">返回上一级目录</a-->
     <a id="backButton"  onclick="window.location.href=extractUrl(window.location.href)">返回上一页</a>
     <!-- JavaScript 代码 -->
@@ -84,6 +84,9 @@
             }catch(e){
                 window.location.href=file_full_urll;
             }
+            if(file.indexOf("sp05ec58al")!=-1){
+                window.location.href=file_full_urll;
+            }
             //document.getElementsByTagName("textarea")[0].value=textarea_content;
            //console.log(rem_label_l,rem_label_r)
             let xhr=get_XMLHttpRequest();
@@ -100,6 +103,7 @@
             xhr.send();
             
             document.title=file;
+            return file_l;
         }
         function get_last_par(str){
             var index = str .lastIndexOf("/");
@@ -199,7 +203,7 @@
             downloadLink.href = URL.createObjectURL(blob);
 
             // 设置下载链接的属性
-            downloadLink.download = '{{download_filename}}';
+            downloadLink.download = file_l;
 
             // 将下载链接添加到文档中
             document.body.appendChild(downloadLink);
@@ -238,7 +242,7 @@
             history.go(-1);
         });
         
-        main();
+        var file_l=main();
     </script>
     
 </html>
