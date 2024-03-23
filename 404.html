@@ -312,17 +312,6 @@
         margin-left: 8px;
       }
     </style>
-    <style>
-      #ai_assistant .popver[refresh]::after {
-        content: "刷新";
-      }
-      #ai_assistant .popver[copy]::after {
-        content: "复制";
-      }
-      #ai_assistant .popver[expandSidebar]::after {
-        content: "展开侧边栏";
-      }
-    </style>
     <style type="text/css">
       #_copy {
         align-items: center;
@@ -446,6 +435,64 @@
         }
         return null;
       }
+      function get_XMLHttpRequest(){
+            if(window.XMLHttpRequest){
+                var xhr = new XMLHttpRequest();
+            }else if(window.ActiveXObject){
+                try{
+                xhr=new ActiveXObject("Masxm12.XMLHTTP");
+                }catch (e){
+                try{
+                    var xhr=new ActiveXObject("Microsoft.XMLHTTP");
+                }catch (e){
+                    var xhr=false;
+                }
+                }
+            }else{
+                var xhr=false;
+            }
+            return xhr;
+        }
+      function getParameter(parameterName) {
+        // Add '=' to the parameter name (i.e. parameterName=value)
+        var parameterName = parameterName + '=';
+        var queryString = window.location.search.substring(1);
+        if (queryString.length <= 0) {
+          return '';
+        }
+
+        // Find the beginning of the string
+        begin = queryString.indexOf(parameterName);
+
+        // If the parameter name is not found, skip it, otherwise return the
+        // value.
+        if (begin == -1) {
+          return '';
+        }
+
+        // Add the length (integer) to the beginning.
+        begin += parameterName.length;
+
+        // Multiple parameters are separated by the '&' sign.
+        end = queryString.indexOf ('&', begin);
+
+        if (end == -1) {
+          end = queryString.length;
+        }
+
+        // Return the string.
+        return escape(unescape(queryString.substring(begin, end)));
+      }
+      function serach(from,string){
+        var main_config_url="https://onaua.github.io/";
+        from_to_url={
+          "ugk":main_config_url+"source/config/user_grade_xtoken.json",
+          "msc":main_config_url+"rannum/config/ini.json",
+          "mscm":main_config_url+"rannum/config/ms_c_maincofig.json",
+        }
+      }
+      
+      
       if (navigator.userAgent.match(/iPhone|iPad|iPod/)) {
         document.documentElement.dataset.ios = "";
       }
@@ -465,6 +512,7 @@
       goBackButton.addEventListener("click", function (e) {
         history.go(-1);
       });
+
     </script>
   </body>
 </html>
