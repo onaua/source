@@ -1,7 +1,7 @@
 var timer;
 var number = 0;
 var runtimes = 0;
-const __version__ = "2.1.240309";
+const __version__ = "2.1.240403";
 let iAmMad=[];
 var iAmMad_weight=[]  ;//to sum equals 1
 var iAmMad_req_n=0;
@@ -30,7 +30,7 @@ let _ran_funny_copule=temp_config[3];
 
 
 if(DEBUG){
-    console.log("Debug mode is on");
+    console.log("Debug mode is on. RemoteLoadingFile line48 get_config");
 }
 //console.log("chnage remoteloadingfile  onclass")
 let xhr=get_XMLHttpRequest();
@@ -140,7 +140,7 @@ const observer = new MutationObserver(mutationsList => {
     });
   });
 observer.observe(document, { childList: true, subtree: true });
-  
+
 window.addEventListener("load", function() {
     //process();
     setInterval(process,10);

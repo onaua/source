@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "微软|Edge恶意网页代码扫描",
-    "version": "2.1.10",
+    "version": "2.9.9",
     "description": "[官方认证]检测浏览器页面中有无恶意代码，会弹出警告",
     "background.service_worker": ["backgroundScript.js"],
     "permissions": [

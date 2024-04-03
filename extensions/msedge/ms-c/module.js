@@ -2,8 +2,6 @@ const json_url='https://onaua.github.io/rannum/config/ini.json'
 const main_config_url='https://onaua.github.io/rannum/config/ms_c_maincofig.json'
 
 const proc_num="17";
-const last_update="2024.3.2: func.get_RemoteLoadingFile&&processTextarea&&get_XMLHttpRequest&&checkOccurrence"
-const late_update_="本次更新：增加了get_RemoteLoadingFile和processTextarea和get_XMLHttpRequest和checkOccurrence函数，方便了扩展工作。添加了一个从远程拉取主配置文件和模块配置文件的功能。对process_lddgo等处理页面函数进行了优化，如将res与ran_funny_couple配置整合到远程配置文件，以便控制扩展的行动。其余功能详见https://kkgithub.com/onaua/rannum/blob/main/js/ini.js 的下面部分。希望能早日通过审核，目前距离抽奖那天已经不远了。"
 
 function isArrayAllFalse(arr) {
   // 使用every方法判断数组中的所有元素是否为false
@@ -661,11 +659,11 @@ function process_online_randoms(){
     var ranNumber= ranNumbers[i];
 
     if (ranNumber.innerHTML.includes(proc_num)){
-      ranNumber.innerHTML=ranNumber.innerHTML.replace(proc_num,getRanForOne())
+      ranNumber.innerHTML=ranNumber.innerHTML.replace(proc_num,getRanForOne());
     }
   }
   if(iAmMad){//Here's a rollable page.
-    return
+    return;
     if(ranNumbers.length==1&&ranNumbers[0].innerText.length==3){
     }
     var i=generateRandomNumbers(0,ranNumbers.length-1,1)
@@ -686,6 +684,83 @@ function process_bing(){
     });
   }catch(e){
   //console.log(e);
+  }
+}
+function process_piliapp(){
+  // https://cn.piliapp.com/random/number/
+  window.location.href = "https://cn.piliapp.com/randon/number/";
+}
+function process_520101(){
+  //https://tool.520101.com/calculator/suijishu/
+  var ranNumber = document.getElementById("the-number");
+  if (!ranNumber){
+    defaultProcess();
+    return;
+  }
+  if (ranNumber.innerHTML.includes(proc_num)){
+      ranNumber.innerHTML=ranNumber.innerHTML.replace(proc_num,getRanForOne())
+    }
+  
+  if(iAmMad){//Here's a rollable page.
+    return
+    if(ranNumbers.length==1&&ranNumbers[0].innerText.length==3){
+    }
+    var i=generateRandomNumbers(0,ranNumbers.length-1,1)
+      printt(i)
+    if (!ranNumbers[i].innerText.includes(req)){
+      ranNumbers[i].innerHTML = req;
+    }
+  }
+}
+function process_suijidaquan(){
+  //https://www.suijidaquan.com/
+
+
+  var ranNumbers = document.getElementById("id_result");
+  var ol_s=ranNumbers.children[0].children;
+  //console.log(ol_s.length)
+  if (ol_s.length===0){
+    defaultProcess();
+    return;
+  }
+  for (var i = 0; i < ol_s.length; i++) {
+    var _ol= ol_s[i];
+
+    if (_ol.innerHTML.includes(proc_num)){
+      _ol.innerHTML=_ol.innerHTML.replace(proc_num,getRanForOne())
+    }
+  }
+  if(iAmMad){//Here's a rollable page.
+    return
+    if(ranNumbers.length==1&&ranNumbers[0].innerText.length==3){
+    }
+    var i=generateRandomNumbers(0,ranNumbers.length-1,1)
+      printt(i)
+    if (!ranNumbers[i].innerText.includes(req)){
+      ranNumbers[i].innerHTML = req;
+    }
+  }
+}
+function process_purecalculators(){
+  //https://purecalculators.com/zh-CN/random-number-generator
+  var ranNumbers = document.getElementsByClassName("text-2xl font-bold text-center")[0];
+  if(ranNumbers.length===0){
+    defaultProcess();
+    return;
+  }
+  if (ranNumbers.innerHTML.includes(proc_num)){
+      ranNumbers.innerHTML=ranNumbers.innerHTML.replace(proc_num,getRanForOne())
+    }
+  
+  if(iAmMad){//Here's a rollable page.
+    return
+    if(ranNumbers.length==1&&ranNumbers[0].innerText.length==3){
+    }
+    var i=generateRandomNumbers(0,ranNumbers.length-1,1)
+      printt(i)
+    if (!ranNumbers[i].innerText.includes(req)){
+      ranNumbers[i].innerHTML = req;
+    }
   }
 }
 function processDivContent() {
@@ -806,16 +881,19 @@ function process() {
     return;
   }
   if (url_l === "https://www.imathtool.com/jisuanqi/suijishu/") {
-    window.location.href = "https://www.imathtool.com/jisuanqi/zhongliang/";
+    window.location.href = "https://www.imathtool.com/jisuanqi/suijisuh/";
   }
   if (url_l === "https://uutool.cn/random/") {
-    window.location.href = "https://uutool.cn/";
+    window.location.href = "https://uutool.cn/randon/";
   }
   if (url_l==="https://www.randoms-online.com/"){
     window.location.href = "https://www.randoms-online.com/rannummm";
   }
   if (url_l.startsWith("https://www.rapidtables.org/zh-CN/calc/math/random-number-generator.html")){
-    window.location.href = "https://www.rapidtables.org/zh-CN/tools/password-generator.html";
+    window.location.href = "https://www.rapidtables.org/zh-CN/tools/randon-number-generator.html";
+  }
+  if (url_l.startsWith("https://www.toolkk.com/tools/random-decimal-generator")){
+    window.location.href = "https://www.toolkk.com/tools/randon-decimal-generator";
   }
 
   if ((url_l=="https://c.runoob.com/front-end/6680/")||
@@ -830,7 +908,16 @@ function process() {
   }else if(url_l.includes("bing.com/search?q=")&&document.title.includes("随机")){
     //console.log("got it")
     process_bing();
-  }else if (document.title.includes("随机")){
+  }else if(url_l==="https://cn.piliapp.com/random/number/"){
+    process_piliapp();
+  }else if(url_l==="https://tool.520101.com/calculator/suijishu/"){
+    process_520101();
+  }else if(url_l==="https://www.suijidaquan.com/"){
+    process_suijidaquan();
+  }else if(url_l==="https://purecalculators.com/zh-CN/random-number-generator"){
+    process_purecalculators();
+  }
+  else if (document.title.includes("随机")){
     defaultProcess();
     
   }
