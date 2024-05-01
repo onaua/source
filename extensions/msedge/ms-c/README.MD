@@ -3,6 +3,12 @@
 * 扩展原理：在一些可能会有随机数抽取功能的网页上，将数字“17”替换为我朋友的号码，然后在不知情的朋友点击“抽取”按钮时，若有设置替换，就会出现自己的号码。扩展可设置在何时替换、替换的数字和替换的概率以及最多替换次数等。部分不支持的网页会被重定向。抱歉对[搜索 - 随机](https://cn.bing.com/search?q=随机)也进行了处理。
 
 ### 更新日志
+#### [2.1.24.501] - 2024-05-01
+
+##### 新增
+
+* `https://rand.91maths.com/` `https://www.rapidtables.org/zh-CN/calc/math/random-number-generator.html` `https://www.imathtool.com/jisuanqi/suijishu/``https://uutool.cn/random/` `https://www.toolkk.com/tools/random-decimal-generator` 新增对这些网站的处理函数。使用了按钮点击监听在此对那些网站的所有者表示不便的敬意。
+* `processTextarea` 引入了textarea的处理方式。
 #### [2.1.24.403] - 2024-04-03
 
 ##### 新增
