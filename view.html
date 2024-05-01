@@ -4,6 +4,8 @@
     <title>{{title}}</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/marked@3.0.0/marked.min.js"></script>
+
     <style>
         body, html {
             height: 100%;
@@ -22,6 +24,15 @@
             resize: none; /* 可选：禁用 textarea 的拖拽调整大小功能 */
             
         }
+        .bottomElement {
+  position: -webkit-sticky; /* 兼容性 */
+  position: sticky;
+  bottom: 5px;
+  padding-bottom: 20px;
+}
+
+
+
 
         #downloadButton,
         #backButton {
@@ -52,7 +63,7 @@
     </style>
 </head>
 <body>
-    <textarea readonly spellcheck="false">
+    <textarea readonly spellcheck="false" id="icontent">
 
     </textarea>
     <a id="downloadButton" download="javascript:file_l" onclick="downloadFile(file_l)">下载本文件</a>
@@ -69,7 +80,8 @@
            ".html":["<!--","-->"],
            ".css":["/*","*/"],
            ".vbs":["'",""],
-           ".bat":["::","::"]
+           ".bat":["::","::"],
+           ".md":["<---","--->"]
            }
             
             var file_full_url=getParameter("file");
@@ -77,6 +89,7 @@
             var file=get_last_par(file_full_url);
             var file_name=file.split(".")[0];
             var file_ext="."+file.split('.').pop();
+            file_ext=file_ext.toLowerCase();
 
             try{
                 var rem_label_l=rem_label[file_ext][0];
@@ -93,11 +106,27 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     var textarea_content=rem_label_l+"=============='"+file+"'=============="+rem_label_r+"\r\n\r\n"+xhr.responseText;
-                    document.getElementsByTagName("textarea")[0].innerHTML=textarea_content;
+                    if(file_ext=='.md'){
+                        var kmd=document.createElement("div");
+                        kmd.id="kmd";
+                        kmd.innerHTML=marked(xhr.responseText);
+                        let textareaElement = document.getElementById('icontent');
+                        document.body.insertBefore(kmd, textareaElement);
+                        
+                        //textareaElement.parentNode.removeChild(textareaElement);
+                        document.body.style.backgroundColor ='white';
+                        kmd.style.backgroundColor ='#c4f0a1';
+                        textareaElement.style.height=40+"px";
+                        kmd.classList.add('bottomElement');
+                    }else{
+                        document.getElementsByTagName("textarea")[0].innerHTML=textarea_content;
+                    }
+                    
                     
                     
                 }
             };
+            
             //console.log(decodeURI(file_full_url).replace("%3A",":"))
             xhr.open('GET', file_full_urll, true);
             xhr.send();
